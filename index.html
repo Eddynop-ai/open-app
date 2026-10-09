@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เปิดแอปเทรด · KGI</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --blue: #1E3A8A; --text: #111827; --muted: #6B7280; --bg: #F3F4F6; --card: #FFFFFF; --line: #E5E7EB; }
+  @media (prefers-color-scheme: dark) { :root { --text: #F9FAFB; --muted: #9CA3AF; --bg: #111827; --card: #1F2937; --line: #374151; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; }
+  main { max-width: 440px; margin: 0 auto; padding: 24px 16px 40px; }
+  h1 { font-size: 22px; margin: 8px 0 4px; }
+  p.sub { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+  a.app { display: flex; align-items: center; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+          padding: 16px; margin-bottom: 12px; text-decoration: none; color: var(--text); }
+  a.app:active { transform: scale(0.99); }
+  .icon { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; font-size: 24px; flex: 0 0 auto; color: #fff; }
+  .s { background: #0F766E; } .k { background: var(--blue); }
+  .name { font-weight: 700; font-size: 17px; }
+  .desc { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .note { color: var(--muted); font-size: 12px; line-height: 1.6; margin-top: 18px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>📱 เปิดแอปเทรด</h1>
+  <p class="sub">แตะเพื่อเปิดแอปบนมือถือ · ถ้ายังไม่มีแอป จะพาไปหน้าดาวน์โหลด / เว็บไซต์</p>
+
+  <a class="app" id="kgi" href="https://www.kgieworld.co.th">
+    <div class="icon k">K</div>
+    <div><div class="name">KGI Powertrade</div><div class="desc">แอปซื้อขายหุ้นของ KGI</div></div>
+  </a>
+  <a class="app" id="stt" href="https://www.settrade.com">
+    <div class="icon s">S</div>
+    <div><div class="name">Streaming</div><div class="desc">แอป Streaming ของ Settrade</div></div>
+  </a>
+
+  <p class="note" id="note"></p>
+</main>
+<script>
+  // Android: เปิดแอปด้วย intent:// (ไม่มีแอป = ไปลิงก์สำรอง) · อื่น ๆ: ลิงก์เว็บ / หน้าดาวน์โหลด
+  var ua = navigator.userAgent || '';
+  var android = /Android/i.test(ua), ios = /iPhone|iPad|iPod/i.test(ua);
+  function intent(pkg, fallback) {
+    return 'intent://#Intent;package=' + pkg + ';S.browser_fallback_url=' + encodeURIComponent(fallback) + ';end';
+  }
+  if (android) {
+    document.getElementById('kgi').href = intent('com.kgi.etrade.th', 'https://play.google.com/store/apps/details?id=com.kgi.etrade.th');
+    document.getElementById('stt').href = intent('com.settrade.streaming', 'https://www.settrade.com');
+  }
+  var note = document.getElementById('note');
+  if (ios) note.textContent = 'iPhone / iPad: ถ้าแตะแล้วไม่เปิดแอป ให้เปิดแอปจากหน้าจอหลักโดยตรง';
+  else if (!android) note.textContent = 'เปิดหน้านี้บนมือถือเพื่อเปิดแอปได้ทันที';
+  if (/Line\//i.test(ua)) note.textContent = 'ถ้าเปิดแอปไม่ได้ในหน้าต่าง LINE ให้กด ⋮ แล้วเลือก "เปิดในเบราว์เซอร์"';
+</script>
+</body>
+</html>
