@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ทดสอบเปิดแอป</title><meta name="robots" content="noindex">
+<style>body{font-family:sans-serif;margin:0;padding:16px;background:#111827;color:#F9FAFB}a{display:block;padding:14px;margin:8px 0;background:#1F2937;border:1px solid #374151;border-radius:10px;color:#93C5FD;text-decoration:none;font-size:16px}input{width:100%;padding:10px;font-size:15px;box-sizing:border-box}small{color:#9CA3AF}</style></head>
+<body><h2>ทดสอบวิธีเปิดแอป</h2>
+<p><small>Package (เปลี่ยนได้):</small><br><input id="pkg" value="com.kgi.etrade.th"></p>
+<div id="list"></div>
+<p><small>แตะทีละข้อ แล้วจดว่าข้อไหน "เปิดแอปเลย" / "ไป Play Store" / "ไม่เกิดอะไร"</small></p>
+<script>
+function draw(){var p=document.getElementById('pkg').value.trim();var V=[
+['A','intent://launch?id='+p+'#Intent;scheme=market;package=com.android.vending;end'],
+['B','market://launch?id='+p],
+['C','intent://details?id='+p+'&launch=true#Intent;scheme=market;package=com.android.vending;end'],
+['D','market://details?id='+p+'&launch=true'],
+['E','https://play.google.com/store/apps/details?id='+p+'&launch=true'],
+['F','intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package='+p+';end']];
+document.getElementById('list').innerHTML=V.map(function(v){return '<a href="'+v[1].replace(/&/g,'&amp;')+'">ข้อ '+v[0]+'</a>'}).join('');}
+document.getElementById('pkg').addEventListener('input',draw);draw();
+</script></body></html>
