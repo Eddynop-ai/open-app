@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ทดสอบ scheme</title><meta name="robots" content="noindex">
+<style>body{font-family:sans-serif;margin:0;padding:16px;background:#111827;color:#F9FAFB}a{display:block;padding:12px;margin:6px 0;background:#1F2937;border:1px solid #374151;border-radius:10px;color:#93C5FD;text-decoration:none;font-size:15px}h3{margin:18px 0 4px}small{color:#9CA3AF}</style></head>
+<body><h2>ทดสอบรอบ 2 (เดาชื่อ scheme)</h2>
+<small>แตะทีละข้อ · ข้อที่ไม่ใช่จะ "ไม่เกิดอะไร" · บอกน้องกรเฉพาะข้อที่ "เปิดแอป"</small>
+<div id="list"></div>
+<script>
+var S={'KGI':['com.kgi.etrade.th',['kgipowertrade','powertrade','kgietrade','kgi','kgitrade','kgith','etrade','kgipt']],
+'Streaming':['com.settrade.streaming',['streaming','settrade','settradestreaming','stt','sttstreaming','streaming4','settrade-streaming','com.settrade.streaming']]};
+var h='';for(var k in S){h+='<h3>'+k+'</h3>';S[k][1].forEach(function(s,i){
+ h+='<a href="intent://open#Intent;scheme='+s+';package='+S[k][0]+';end">'+k+' '+(i+1)+' · '+s+'://</a>';});}
+document.getElementById('list').innerHTML=h;
+</script></body></html>
